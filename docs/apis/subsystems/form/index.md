@@ -300,6 +300,38 @@ public function definition() {
 }
 ```
 
+### filter_shown_headers()
+
+<Since version="4.3"  issueNumber="MDL-78288" />
+
+<!-- cspell:ignore _shownonlyelements -->
+This method adds values to `_shownonlyelements` array to decide whether a header should be shown or hidden.
+Only header names would be accepted and added to `_shownonlyelements` array.
+Headers included in `_shownonlyelements` will be shown expanded in the form. The rest of the headers will be hidden.
+
+```php
+public function filter_shown_headers(array $shownonly): void {
+    $this->_shownonlyelements = [];
+    if (empty($shownonly)) {
+        return;
+    }
+    foreach ($shownonly as $headername) {
+        $element = $this->getElement($headername);
+        if ($element->getType() == 'header') {
+            $this->_shownonlyelements[] = $headername;
+            $this->setExpanded($headername);
+        }
+    }
+}
+```
+
+Empty `_shownonlyelements` array doesn't affect header's status or visibility.
+
+For a real-life example, see:
+
+- [Section: edit access restriction settings link](https://github.com/moodle/moodle/blob/master/course/editsection.php#L121)
+- [Activity module: edit access restriction settings link](https://github.com/moodle/moodle/blob/master/course/modedit.php#L164)
+
 ### Other features
 
 In some cases you may want to [group elements](https://docs.moodle.org/dev/lib/formslib.php_Form_Definition#Use_Fieldsets_to_group_Form_Elements) into collections.
