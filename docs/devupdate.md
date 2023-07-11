@@ -289,3 +289,17 @@ public function add_sticky_action_buttons(
     ?string $submitlabel = null,
 );
 ```
+
+A new method `filter_shown_headers() is created to [Forms API](./apis/subsystems/form/index.md#filter_shown_headers) to show some expanded headers only and hide the rest.
+
+```php
+    public function filter_shown_headers(array $shownonly): void {
+        $toshow = [];
+        foreach ($shownonly as $show) {
+            if ($this->_form->elementExists($show) && $this->_form->getElementType($show) == 'header') {
+                $toshow[] = $show;
+            }
+        }
+        $this->_form->filter_shown_headers($toshow);
+    }
+```
