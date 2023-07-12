@@ -290,7 +290,9 @@ public function add_sticky_action_buttons(
 );
 ```
 
-A new method `filter_shown_headers() is created to [Forms API](./apis/subsystems/form/index.md#filter_shown_headers) to show some expanded headers only and hide the rest.
+### filter_shown_headers
+
+A new method `filter_shown_headers()` is created to [Forms API](./apis/subsystems/form/index.md#filter_shown_headers) to show some expanded headers only and hide the rest.
 
 ```php
     public function filter_shown_headers(array $shownonly): void {
